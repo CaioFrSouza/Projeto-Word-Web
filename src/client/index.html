@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl+c Ctrl+v </title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+</head>
+<body>
+    <div class="msgOld"></div>
+    <form id='chat'>
+        
+        <input type="text" name="msg" id="msg">
+        <input type="submit" value="Enviar tema ">
+    </form>
+    <script>
+        const socket = io()
+        $(document).ready(()=>{
+            $('#chat').submit( (e) =>{
+                e.preventDefault()
+                let msg = $('input[name = msg]').val()
+                
+                if(msg.length){
+                    $('input[name=msg]').remove()
+                    $('input[type=submit').remove()
+                    console.log(msg)
+                    socket.emit('termo',msg)
+                }
+            })
+            socket.on ('msg',(o)=> {
+                $('.msgOld').append(`<div id="msgOld">${o.name}: ${o.msg}<br></div>`)
+            })
+            console.log("ready")
+        })
+    </script>
+</body>
+</html>
