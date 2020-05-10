@@ -3,6 +3,7 @@ const app = express()
 const state = require('./src/server/state')
 const wiki = require('./src/server/wiki')
 const word = require('./src/server/word')
+const ngrok = require('ngrok')
 
 const _WEB_ = require('./src/server/.config.json')
 
@@ -79,8 +80,16 @@ io.on('connection', (socket) => {
     })
 })
 
-http.listen(Number(_WEB_.port),String(_WEB_.ip),()=>{ 
+http.listen(Number(_WEB_.port),String(_WEB_.ip),async ()=>{ 
+    process.exec
     console.clear();
     console.log('Server iniciado com sucesso') 
     console.log('rodando no ip '+_WEB_.ip +':'+ _WEB_.port)
+    const url = await ngrok.connect({
+        proto: 'http',
+        addr:_WEB_.port,
+        authtoken : _WEB_.ngrokApiKey
+    })
+    console.log(`Tunelamento Está okay`)
+    console.log(`Link tunelado: ${url}`)
 })

@@ -7,11 +7,12 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Caio Caik Fresneda de Souza",
   "license": "ISC",
   "dependencies": {
     "algorithmia": "^0.3.10",
     "express": "^4.17.1",
+    "ngrok": "^3.2.7",
     "officegen": "^0.6.4",
     "socket.io": "^2.3.0"
   },
